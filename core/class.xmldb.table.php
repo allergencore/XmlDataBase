@@ -15,11 +15,14 @@ class tableXmlDB {
 	public function __construct($table) {
 		$this->DomXmlDoc = $table;
 	}
+	public function applyChanges($db) {
+		$db->applyTable($db->DomXmlDoc);
+	}
 	public function getRow($i) {
 		$xml = $this->DomXmlDoc;
 		$nl = $xml->getElementsByTagName("row");
-		if ($nl->length < $i) return false;
-		return $nl->item($i);
+		if ($nl->length <= $i) return false;
+		return new rowXmlDB($nl->item($i));
 	}
 	public function addRow($arr) {
 		$xml = $this->DomXmlDoc;
@@ -29,6 +32,28 @@ class tableXmlDB {
 			$col = new DOMElement($k, $v);
 			$rowr->appendChild($col);
 		}
+	}
+	public function dropRow($arr) {
+		$xml = $this->DomXmlDoc;
+		$rl = $xml->getElementsByTagName("row");
+		for($i = 0; $i < $this->length; $i++) {
+			$row = $rl->item($i);
+			foreach($arr as $k => $v) {
+				$val = $row->getElementsByTagName($k)->item(0)->nodeValue;
+				$isthis = true;
+				if ($val == $v) {
+					$isthis = $isthis && true;
+				} else {
+					$isthis = false;
+					continue 2;
+				}
+			}
+			if ($isthis) {
+				$xml->removeChild($row);
+				return true;
+				}
+		}
+		return false;
 	}
 	public function existsRow($vals, $columns) {
 		$rows = $this->DomXmlDoc->getElementsByTagName("row");

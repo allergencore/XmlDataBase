@@ -9,6 +9,8 @@
 
 // table manipulation class
 require_once("class.xmldb.table.php");
+// row manipulation class
+require_once("class.xmldb.row.php");
 
 class xmlDB {
 	
@@ -21,7 +23,7 @@ class xmlDB {
 		$this->file = @fopen($this->fname, "r");
 		if ($this->file === false ) return false;
 	}
-	public function load($login, $pass) {
+	public function load($login = "default", $pass = "1234") {
 		$xmlDoc = new DOMDocument("1.0", "windows-1251");
 		$fcont = @fread($this->file, filesize($this->fname));
 		if (!$fcont) return false;
@@ -47,7 +49,7 @@ class xmlDB {
 		if ($this->file === false ) return false;
 		if (@fwrite($this->file, $fcont) === false) return false;
 	}
-	public function create() {
+	public function create($login = "default", $pass = "1234") {
 		$this->DomXmlDoc = new DOMDocument("1.0", "windows-1251");
 		$xmlDoc = $this->DomXmlDoc;
 		$xmlRoot = $xmlDoc->createElement("database");
@@ -56,8 +58,8 @@ class xmlDB {
 		$xmlRoot->appendChild($users);
 		$du = $users->createElement("user");
 		$users->appendChild($du);
-		$du_l = $du->createElement("login", "default");
-		$du_p = $du->createElement("pass", md5("1234"));
+		$du_l = $du->createElement("login", $login);
+		$du_p = $du->createElement("pass", md5($pass));
 		$du->appendChild($du_l);
 		$du->appendChild($du_p);
 		$this->save();
@@ -80,7 +82,11 @@ class xmlDB {
 		$this->DomXmlDoc->appendChild($table);
 	}
 	public function dropTable($name) {
-		
+		$xml = $this->DomXmlDoc;
+		$tl = $xml->getElementsByTagName("table");
+		for($i = 0; $i < $tl->length; $i++) {
+			$this->
+		}
 	}
 	// change to 'protected' if not-dev mode
 	public function getXmlDoc() {
