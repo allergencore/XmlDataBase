@@ -1,0 +1,7 @@
+XmlDataBase - classes package under GNU GPL v3 licence,
+which lets you to create and manage xml databases. you
+don't need to have database server such as MSSQL\MySQL\
+FireBird\..., you only need access to file...
+Soon, I'll add class-connector, which helps to edit
+remote XmlDataBases.
+by Allergencore@gmail.com
