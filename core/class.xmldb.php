@@ -8,9 +8,9 @@
 ###############################################*/
 
 // table manipulation class
-require_once("class.xmldb.table.php");
+//require_once("class.xmldb.table.php");
 // row manipulation class
-require_once("class.xmldb.row.php");
+//require_once("class.xmldb.row.php");
 
 class xmlDB {
 	

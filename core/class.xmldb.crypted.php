@@ -7,7 +7,7 @@
 # (Allergencore@gmail.com [Alex])
 ###############################################*/
 
-require_once("class.xmldb.php");
+//require_once("class.xmldb.php");
 
 final class cXmlDB extends xmlDB {
 	
